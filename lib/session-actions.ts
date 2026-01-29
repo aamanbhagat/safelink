@@ -12,19 +12,19 @@ export async function initSessionAction(slug: string): Promise<{ token: string }
 }
 
 /**
- * Complete step 1 and get step 2 URL
+ * Complete step 1 and get step 2 URL with new token
  */
 export async function completeStep1Action(token: string, slug: string): Promise<{ success: boolean; step2Url?: string }> {
-    const completed = completeStep1(token, slug);
+    const newToken = completeStep1(token, slug);
 
-    if (!completed) {
+    if (!newToken) {
         return { success: false };
     }
 
-    // Return step 2 URL with token
+    // Return step 2 URL with the NEW token (has step1Completed=true)
     return {
         success: true,
-        step2Url: `/go/${slug}/step2?t=${token}`
+        step2Url: `/go/${slug}/step2?t=${encodeURIComponent(newToken)}`
     };
 }
 
@@ -50,8 +50,8 @@ export async function completeStep2Action(token: string, slug: string): Promise<
         // Decrypt URL
         const url = decryptUrl(slug);
 
-        // Mark session as used
-        useSession(token, slug);
+        // Mark token as used (one-time)
+        useSession(token);
 
         return { success: true, url };
     } catch {
