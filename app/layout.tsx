@@ -40,8 +40,12 @@ export default function RootLayout({
             gtag('config', 'G-GCH4TPWT77');
           `}
         </Script>
-        {/* Monetag Anti-AdBlock Script (optional) */}
-        {/* Add your Monetag scripts here */}
+        {/* Monetag Ad Script */}
+        <Script
+          src="https://quge5.com/88/tag.min.js"
+          data-zone="206568"
+          strategy="afterInteractive"
+        />
       </head>
       <body className={`${geist.variable} antialiased`}>
         {children}
