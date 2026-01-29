@@ -51,7 +51,7 @@ export async function GET(
         const encrypted = encryptUrl(processedUrl);
         const safelink = `${baseUrl}/go/${encrypted}`;
 
-        // Check if user wants JSON or redirect
+        // Check if user wants JSON or text
         const format = request.nextUrl.searchParams.get("format");
 
         if (format === "json") {
@@ -62,10 +62,14 @@ export async function GET(
             });
         }
 
-        // Default: return just the safelink as plain text
-        return new NextResponse(safelink, {
-            headers: { "Content-Type": "text/plain" },
-        });
+        if (format === "text") {
+            return new NextResponse(safelink, {
+                headers: { "Content-Type": "text/plain" },
+            });
+        }
+
+        // Default: redirect to the safelink
+        return NextResponse.redirect(safelink);
 
     } catch {
         return NextResponse.json(
