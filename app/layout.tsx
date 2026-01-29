@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { config } from "@/lib/config";
 
@@ -30,6 +31,7 @@ export default function RootLayout({
       </head>
       <body className={`${geist.variable} antialiased`}>
         {children}
+        <Analytics />
       </body>
     </html>
   );
