@@ -41,11 +41,7 @@ export default function RootLayout({
           `}
         </Script>
         {/* Monetag Ad Script */}
-        <Script
-          src="https://quge5.com/88/tag.min.js"
-          data-zone="206568"
-          strategy="afterInteractive"
-        />
+        <script src="https://quge5.com/88/tag.min.js" data-zone="206568" async data-cfasync="false"></script>
       </head>
       <body className={`${geist.variable} antialiased`}>
         {children}
